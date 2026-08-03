@@ -1,0 +1,32 @@
+{
+  "name": "bot",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "clean": "git clean -xdf .turbo dist node_modules",
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "sync:manifest": "bun run src/scripts/sync-manifest.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/ai": "workspace:*",
+    "@repo/db": "workspace:*",
+    "@repo/logging": "workspace:*",
+    "@repo/sandbox": "workspace:*",
+    "@slack/socket-mode": "^2.0.7",
+    "@slack/web-api": "^7.17.0",
+    "@t3-oss/env-core": "catalog:",
+    "agentmail": "^0.5.13",
+    "ai": "catalog:",
+    "dotenv": "catalog:",
+    "exa-js": "^2.13.0",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/tsconfig": "workspace:*",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  }
+}

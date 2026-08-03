@@ -1,0 +1,25 @@
+{
+  "name": "@repo/sandbox",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "build:template": "bun run src/scripts/build-template.ts",
+    "clean": "git clean -xdf .turbo dist node_modules",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@e2b/code-interpreter": "^2.6.1",
+    "@repo/logging": "workspace:*",
+    "dotenv": "catalog:",
+    "e2b": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/tsconfig": "workspace:*",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  }
+}

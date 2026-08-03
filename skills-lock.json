@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "ai-sdk": {
+      "source": "vercel/ai",
+      "sourceType": "github",
+      "skillPath": "skills/use-ai-sdk/SKILL.md",
+      "computedHash": "2249889eb47ef0f61c4dba4cf2afe01c1c8dd793bb4c24230347c1ab909bb7dd"
+    },
+    "chat-sdk": {
+      "source": "vercel/chat",
+      "sourceType": "github",
+      "skillPath": "skills/chat/SKILL.md",
+      "computedHash": "eec16293cb0044b8e4376dec986b96dc70bf425854c6fb7aa062890faa020a25"
+    },
+    "grill-with-docs": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
+      "computedHash": "eb0e91e84277283dc2b23ed544399e53afd6b5287e5b6929f25fe8aa608e164b"
+    },
+    "improve": {
+      "source": "shadcn/improve",
+      "sourceType": "github",
+      "skillPath": "skills/improve/SKILL.md",
+      "computedHash": "431adaf38132005b32cacb952313f18b4c03ee98ee4c5859bad323156a48bb02"
+    },
+    "slack-agent": {
+      "source": "vercel-labs/slack-agent-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "c40b751775659892fa9f3eb28f77d570243e07c85c575b24ee0fb19dc824f43f"
+    },
+    "turborepo": {
+      "source": "vercel/turborepo",
+      "sourceType": "github",
+      "skillPath": "skills/turborepo/SKILL.md",
+      "computedHash": "6a23ee82918e35f8848b6fc2ccbea699d740a30fee65f288201adb4e98bf3827"
+    },
+    "ultracite": {
+      "source": "haydenbleasel/ultracite",
+      "sourceType": "github",
+      "skillPath": "skills/ultracite/SKILL.md",
+      "computedHash": "5efa7db1bc960b8beda708e3a6a4f633bf592e68b9d720524d17a300e091ac0e"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "globalEnv": [
+    "AGENTMAIL_API_KEY",
+    "AUTO_ADD_CHANNEL",
+    "DATABASE_URL",
+    "E2B_API_KEY",
+    "EXA_API_KEY",
+    "HACKCLUB_API_KEY",
+    "INFERENCE_API_KEY",
+    "LANGFUSE_BASEURL",
+    "LANGFUSE_PUBLIC_KEY",
+    "LANGFUSE_SECRET_KEY",
+    "LOG_DIRECTORY",
+    "LOG_LEVEL",
+    "OPT_IN_CHANNEL",
+    "SLACK_APP_TOKEN",
+    "SLACK_BOT_TOKEN",
+    "SLACK_SIGNING_SECRET"
+  ],
+  "globalPassThroughEnv": [
+    "CI",
+    "NODE_ENV",
+    "PORT",
+    "TURBO_TEAM",
+    "TURBO_TOKEN",
+    "VERCEL",
+    "VERCEL_ENV",
+    "VERCEL_ORG_ID",
+    "VERCEL_PROJECT_ID",
+    "VERCEL_URL"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "jq -r '.tool_input.file_path' | { read -r f; bun x ultracite fix \"$f\" --skip=correctness/noUnusedImports; } 2>/dev/null || true",
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit"
+      }
+    ]
+  }
+}

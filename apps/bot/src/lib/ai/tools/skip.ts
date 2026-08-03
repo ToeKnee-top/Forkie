@@ -1,0 +1,25 @@
+import { tool } from 'ai';
+import { z } from 'zod';
+import logger from '@/lib/logger';
+
+/**
+ * Calling this ENDS the attempt: `streamAttempt` stops on it, so the model is
+ * never asked what to do next about a message it just declined. It has to stay
+ * registered under `SKIP_TOOL_NAME` for that to hold — see the toolset.
+ */
+export function skipTool({ threadId }: { threadId: string }) {
+  return tool({
+    description:
+      'End the turn without replying. Use when the message needs no response from you, for example when it is not addressed to you or is conversation between other people.',
+    inputSchema: z.object({
+      reason: z
+        .string()
+        .optional()
+        .describe('Optional short reason for skipping.'),
+    }),
+    execute: ({ reason }) => {
+      logger.info({ reason, threadId }, '[agent] skipped reply');
+      return { skipped: true };
+    },
+  });
+}

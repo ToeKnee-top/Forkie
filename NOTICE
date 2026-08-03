@@ -1,0 +1,26 @@
+Kyto
+Copyright (c) 2026 Devansh Awat
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version. See LICENSE for the full text.
+
+The AGPL is a strong copyleft licence: in particular, if you run a modified
+version of Kyto and let others interact with it over a network, you must offer
+those users the complete corresponding source of your modified version.
+
+Third-party components
+----------------------
+
+- Gorkie-derived portions. Kyto began as a private fork of gorkie, which was
+  MIT-licensed. Code that originated in gorkie, and this repository's history
+  from before the rewrite, remain available under the MIT licence — see
+  LICENSE-gorkie-MIT. That grant cannot be withdrawn; the AGPL applies to the
+  combined work and to Kyto's own code.
+
+- Vercel AI SDK. This software contains components from Vercel's AI SDK,
+  licensed under the Apache License 2.0. Copyright 2023 Vercel, Inc.
+
+- Vendored skills under .agents/skills/ ship with their own upstream LICENSE
+  files and are governed by those licences, not by this one.
