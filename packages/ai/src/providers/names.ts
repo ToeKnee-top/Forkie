@@ -12,3 +12,5 @@
 
 export const GEMINI_PROVIDER = 'gemini';
 export const HACKCLUB_PROVIDER = 'hackclub';
+
+export const GROQ_PROVIDER = 'groq';

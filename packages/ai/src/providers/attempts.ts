@@ -1,5 +1,5 @@
 import { keys } from '../keys';
-import { GEMINI_PROVIDER, HACKCLUB_PROVIDER } from './names';
+import { GEMINI_PROVIDER, GROQ_PROVIDER, HACKCLUB_PROVIDER } from './names';
 
 const env = keys();
 
@@ -8,7 +8,7 @@ const GEMINI_BASE_URL =
   env.GEMINI_BASE_URL ??
   'https://generativelanguage.googleapis.com/v1beta/openai/';
 
-export { GEMINI_PROVIDER, HACKCLUB_PROVIDER } from './names';
+export { GEMINI_PROVIDER, GROQ_PROVIDER, HACKCLUB_PROVIDER } from './names';
 
 /** One model attempt: an OpenAI-compatible endpoint + model slug. */
 export interface ModelAttempt {
@@ -75,6 +75,25 @@ export const PRIMARY_MODEL = 'deepseek/deepseek-v4-flash-0731';
 // step outputs (<6k tokens). Raise if large single-step file writes truncate.
 export const MAX_OUTPUT_TOKENS = 8000;
 
+/** QuackX: GROQ is the primary provider (cheap, no shared HackClub cap spend).
+ * GROQ exposes an OpenAI-compatible endpoint and supports tool-calling on
+ * llama-3.3-70b-versatile. Text-only: images are pre-described via a Gemini
+ * vision key (modelSupportsVision / visionAttempt) or skipped if none is set.
+ */
+export const GROQ_BASE_URL = 'https://api.groq.com/openai/v1';
+export const GROQ_MODEL = 'llama-3.3-70b-versatile';
+
+const groqAttempts: ModelAttempt[] = env.GROQ_API_KEY
+  ? [
+      {
+        apiKey: env.GROQ_API_KEY as string,
+        baseURL: GROQ_BASE_URL,
+        model: GROQ_MODEL,
+        provider: GROQ_PROVIDER,
+      },
+    ]
+  : [];
+
 /** Build a HackClub attempt for any model id. */
 export function catalogAttempt(model: string): ModelAttempt {
   return {
@@ -123,7 +142,7 @@ const geminiAttempts: ModelAttempt[] = env.GEMINI_API_KEY
 // endpoints found that support image input") and burns a doomed attempt before
 // falling back. For a text-only model kyto pre-describes the image with Gemini
 // (see vision.ts) and feeds the description as text instead of the raw pixels.
-const TEXT_ONLY_MODELS = new Set<string>(['deepseek/deepseek-v4-flash-0731']);
+const TEXT_ONLY_MODELS = new Set<string>(['deepseek/deepseek-v4-flash-0731', 'llama-3.3-70b-versatile']);
 
 /** True unless the model's endpoint is known to reject image input. */
 export function modelSupportsVision(model: string): boolean {
@@ -148,7 +167,8 @@ export const visionAttempt: ModelAttempt | undefined = env.GEMINI_API_KEY
  * The attempt the main query starts on: PRIMARY_MODEL, served by HackClub.
  * HackClub is always configured, so this never degrades on a missing key.
  */
-export const PRIMARY_ATTEMPT: ModelAttempt = catalogAttempt(PRIMARY_MODEL);
+export const PRIMARY_ATTEMPT: ModelAttempt =
+  groqAttempts[0] ?? catalogAttempt(PRIMARY_MODEL);
 
 // The models a subagent runs on, best-value first: the owner's own Gemini key
 // (cheap, and a quota separate from HackClub's shared daily cap), then a single

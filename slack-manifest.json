@@ -1,7 +1,7 @@
 {
   "display_information": {
-    "name": "kyto",
-    "description": "gork's more serious sibling",
+    "name": "QuackX",
+    "description": "QuackX, a cyberphunk-era agent for Hack Club.",
     "background_color": "#000000"
   },
   "features": {
@@ -11,19 +11,19 @@
       "messages_tab_read_only_enabled": false
     },
     "bot_user": {
-      "display_name": "kyto",
+      "display_name": "QuackX",
       "always_online": true
     },
     "slash_commands": [
       {
-        "command": "/kyto",
-        "description": "Interact with Kyto (try /kyto help)",
+        "command": "/quackx",
+        "description": "Interact with QuackX (try /quackx help)",
         "usage_hint": "help | topic-summaries",
         "should_escape": false
       }
     ],
     "agent_view": {
-      "agent_description": "Your AI assistant for Slack. Searches the web, writes and runs code, generates images, browses websites, manages reminders and scheduled tasks, and more.",
+      "agent_description": "Your AI agent for Slack. Searches the web, writes and runs code, generates images, browses websites, manages reminders and scheduled tasks, and more.",
       "suggested_prompts": []
     }
   },
