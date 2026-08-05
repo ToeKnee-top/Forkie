@@ -75,10 +75,11 @@ export const PRIMARY_MODEL = 'deepseek/deepseek-v4-flash-0731';
 // step outputs (<6k tokens). Raise if large single-step file writes truncate.
 export const MAX_OUTPUT_TOKENS = 8000;
 
-/** QuackX: GROQ is the primary provider (cheap, no shared HackClub cap spend).
- * GROQ exposes an OpenAI-compatible endpoint and supports tool-calling on
- * llama-3.3-70b-versatile. Text-only: images are pre-described via a Gemini
- * vision key (modelSupportsVision / visionAttempt) or skipped if none is set.
+/** QuackX: GROQ is a cheap optional fallback when a GROQ_API_KEY is set
+ * (OpenAI-compatible, tool-calling on llama-3.3-70b-versatile), sitting BEFORE
+ * the shared HackClub rungs. It is no longer the primary — HCAI/DeepSeek is
+ * (see PRIMARY_MODEL). Text-only: images are pre-described via a Gemini vision
+ * key (modelSupportsVision / visionAttempt) or skipped if none is set.
  */
 export const GROQ_BASE_URL = 'https://api.groq.com/openai/v1';
 export const GROQ_MODEL = 'llama-3.3-70b-versatile';
@@ -167,8 +168,7 @@ export const visionAttempt: ModelAttempt | undefined = env.GEMINI_API_KEY
  * The attempt the main query starts on: PRIMARY_MODEL, served by HackClub.
  * HackClub is always configured, so this never degrades on a missing key.
  */
-export const PRIMARY_ATTEMPT: ModelAttempt =
-  groqAttempts[0] ?? catalogAttempt(PRIMARY_MODEL);
+export const PRIMARY_ATTEMPT: ModelAttempt = catalogAttempt(PRIMARY_MODEL);
 
 // The models a subagent runs on, best-value first: the owner's own Gemini key
 // (cheap, and a quota separate from HackClub's shared daily cap), then a single
@@ -218,6 +218,9 @@ export const subagentAttempt: ModelAttempt | undefined = subagentAttempts[0];
 // provider keys rate-limited or in cooldown"). Re-add rungs here only after
 // verifying a real completion succeeds.
 export const LEADERBOARD_FALLBACK: ModelAttempt[] = [
+  // QuackX: GROQ (cheap, no shared HackClub cap spend) offered first when a
+  // GROQ_API_KEY is set; falls back to the shared HackClub rungs otherwise.
+  ...groqAttempts,
   // Qwen3.7 Plus ($0.32/M in, $1.28/M out, 1M ctx) — the former PRIMARY, demoted
   // to the top fallback rung when deepseek-v4-flash was promoted over it
   // (2026-08-01). It held the primary slot for weeks with no quality complaints,
