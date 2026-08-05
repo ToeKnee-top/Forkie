@@ -103,15 +103,19 @@ async function reapOnce(): Promise<void> {
     new Date(Date.now() - SANDBOX_TTL_MS)
   );
   for (const row of stale) {
-    await killSandbox(row.sandboxId, env.E2B_API_KEY).catch(
-      (error: unknown) => {
-        // Already gone is the common case; forget it either way.
-        logger.info(
-          { err: errorMessage(error), sandboxId: row.sandboxId },
-          '[sandbox] reaper could not kill sandbox'
-        );
-      }
-    );
+    // Killing is E2B-only: local/ssh providers have no sandbox ids to kill. The
+    // DB row is cleared either way.
+    if (env.E2B_API_KEY) {
+      await killSandbox(row.sandboxId, env.E2B_API_KEY).catch(
+        (error: unknown) => {
+          // Already gone is the common case; forget it either way.
+          logger.info(
+            { err: errorMessage(error), sandboxId: row.sandboxId },
+            '[sandbox] reaper could not kill sandbox'
+          );
+        }
+      );
+    }
     await clearThreadSandbox(row.threadId).catch(() => undefined);
   }
   if (stale.length > 0) {
