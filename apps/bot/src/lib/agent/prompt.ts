@@ -21,13 +21,13 @@ const MAX_THREAD_MESSAGES = 100;
 //
 // Bounded, not unlimited: `fetchMessages` pages until this many are in hand, so
 // a bigger number is real Slack API work on every turn. 4x the replay window
-// covers any thread anyone has actually held with kyto; past it the very oldest
+// covers any thread anyone has actually held with forkie; past it the very oldest
 // messages are still lost, and the block's count says how many were kept.
 const MAX_COMPACTION_MESSAGES = 400;
 // The bot's Slack username is a leftover gorkie-era handle; label its own
-// authored messages as kyto so it doesn't think "gorkie" spoke (mirrors the
+// authored messages as forkie so it doesn't think "gorkie" spoke (mirrors the
 // same special-case in annotateMentions).
-const BOT_NAME = 'kyto';
+const BOT_NAME = 'forkie';
 
 function authorLabel(message: Message): string {
   if (slack.botUserId && message.author.userId === slack.botUserId) {
@@ -56,7 +56,7 @@ export async function buildPrompt(
 ): Promise<string> {
   const current = await renderMessage(message);
 
-  // What kyto was THINKING on this thread's last few turns. Slack replayed above
+  // What forkie was THINKING on this thread's last few turns. Slack replayed above
   // only records what it said, so without this each turn re-derives the reasoning
   // (and the dead ends) of the one before it.
   const thinking = thread
@@ -66,7 +66,7 @@ export async function buildPrompt(
   let history = '';
   let compacted = '';
   if (thread) {
-    // Focus mode: drop messages from non-focused users so kyto genuinely never
+    // Focus mode: drop messages from non-focused users so forkie genuinely never
     // sees what other people said in a focused thread (not just declines to
     // reply). Its own messages and the owner's are always kept.
     const focusState = await thread.state.catch(() => null);
@@ -81,7 +81,7 @@ export async function buildPrompt(
           isMe: entry.author.isMe === true,
         })
     );
-    // Split AFTER filtering, so a focused thread's window is 100 messages kyto
+    // Split AFTER filtering, so a focused thread's window is 100 messages forkie
     // may actually see rather than 100 slots partly spent on hidden ones.
     const replayed = prior.slice(-MAX_THREAD_MESSAGES);
     const overflow = prior.slice(

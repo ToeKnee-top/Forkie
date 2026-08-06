@@ -1,7 +1,7 @@
 {
   "display_information": {
-    "name": "QuackX",
-    "description": "QuackX, a cyberphunk-era agent for Hack Club.",
+    "name": "Forkie",
+    "description": "Forkie, an agent for Hack Club.",
     "background_color": "#000000"
   },
   "features": {
@@ -11,13 +11,13 @@
       "messages_tab_read_only_enabled": false
     },
     "bot_user": {
-      "display_name": "QuackX",
+      "display_name": "Forkie",
       "always_online": true
     },
     "slash_commands": [
       {
-        "command": "/quackx",
-        "description": "Interact with QuackX (try /quackx help)",
+        "command": "/forkie",
+        "description": "Interact with Forkie (try /forkie help)",
         "usage_hint": "help | topic-summaries",
         "should_escape": false
       }

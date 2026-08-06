@@ -51,7 +51,7 @@ const VALIDATION_BADGES: Record<string, string> = {
 const VALIDATION_MESSAGE_MAX = 140;
 
 // The Model keys (BYOK) section: the acting user's own provider keys, which
-// their turns run on instead of kyto's shared models. Only ever rendered for the
+// their turns run on instead of forkie's shared models. Only ever rendered for the
 // key's owner — the App Home tab is per-user, so no one else can see these.
 function modelKeyBlocks(credentials: UserModelCredential[]): SlackBlock[] {
   const blocks: SlackBlock[] = [
@@ -63,14 +63,14 @@ function modelKeyBlocks(credentials: UserModelCredential[]): SlackBlock[] {
         type: 'button',
       },
       text: mrkdwn(
-        "*Model keys*\nBring your own key: your turns run on your provider and model instead of kyto's shared models. Keys are encrypted at rest and only ever used for your own turns."
+        "*Model keys*\nBring your own key: your turns run on your provider and model instead of forkie's shared models. Keys are encrypted at rest and only ever used for your own turns."
       ),
       type: 'section',
     },
   ];
   if (credentials.length === 0) {
     blocks.push({
-      elements: [mrkdwn("_No keys — you're on kyto's shared models._")],
+      elements: [mrkdwn("_No keys — you're on forkie's shared models._")],
       type: 'context',
     });
     return blocks;
@@ -144,7 +144,7 @@ function modelKeyBlocks(credentials: UserModelCredential[]): SlackBlock[] {
   blocks.push({
     elements: [
       mrkdwn(
-        "_Shared fallback off means a failing key stops the turn — kyto won't quietly spend the shared budget for you._"
+        "_Shared fallback off means a failing key stops the turn — forkie won't quietly spend the shared budget for you._"
       ),
     ],
     type: 'context',
@@ -170,7 +170,7 @@ function chatgptBlocks(account: ChatgptAccount | null): SlackBlock[] {
           type: 'button',
         },
         text: mrkdwn(
-          "*Sign in with ChatGPT*\nLink your ChatGPT account (Plus / Pro / Team) and your turns run on your own subscription instead of kyto's shared models."
+          "*Sign in with ChatGPT*\nLink your ChatGPT account (Plus / Pro / Team) and your turns run on your own subscription instead of forkie's shared models."
         ),
         type: 'section',
       },
@@ -242,7 +242,7 @@ function chatgptBlocks(account: ChatgptAccount | null): SlackBlock[] {
   blocks.push({
     elements: [
       mrkdwn(
-        '_“ChatGPT first” runs your subscription first and falls back to kyto’s shared models; “shared first” uses the shared models first and only falls back to ChatGPT. Tap to switch._'
+        '_“ChatGPT first” runs your subscription first and falls back to forkie’s shared models; “shared first” uses the shared models first and only falls back to ChatGPT. Tap to switch._'
       ),
     ],
     type: 'context',
@@ -342,7 +342,7 @@ export function buildChatgptModelModal(
             placeholder: plainText('e.g. gpt-5'),
             type: 'plain_text_input',
           },
-          hint: plainText('The model kyto runs on your ChatGPT subscription.'),
+          hint: plainText('The model forkie runs on your ChatGPT subscription.'),
           label: plainText('Model'),
           type: 'input',
         };
@@ -394,10 +394,10 @@ export function buildHomeView({
     : '_No custom instructions set._';
 
   const blocks: SlackBlock[] = [
-    { text: plainText('Kyto'), type: 'header' },
+    { text: plainText('Forkie'), type: 'header' },
     {
       elements: [
-        mrkdwn('Customize how Kyto behaves across your Slack conversations.'),
+        mrkdwn('Customize how Forkie behaves across your Slack conversations.'),
       ],
       type: 'context',
     },
@@ -443,7 +443,7 @@ export function buildHomeView({
         value: showUsageFooter ? 'off' : 'on',
       },
       text: mrkdwn(
-        `*Usage footer*\nShow a small token count · tokens/sec line under Kyto's replies. Currently *${showUsageFooter ? 'on' : 'off'}*.`
+        `*Usage footer*\nShow a small token count · tokens/sec line under Forkie's replies. Currently *${showUsageFooter ? 'on' : 'off'}*.`
       ),
       type: 'section',
     }
@@ -495,7 +495,7 @@ export function buildHomeView({
     { type: 'divider' },
     {
       text: mrkdwn(
-        '*Reminders*\nRecurring reminders you created, plus any you were named an editor of. Create them by asking Kyto; manage them here.'
+        '*Reminders*\nRecurring reminders you created, plus any you were named an editor of. Create them by asking Forkie; manage them here.'
       ),
       type: 'section',
     }
@@ -553,7 +553,7 @@ export function buildHomeView({
 
   blocks.push(...privacyBlocks(privacy));
 
-  // Owner-only: how kyto presents itself per message type (name suffix + icon).
+  // Owner-only: how forkie presents itself per message type (name suffix + icon).
   if (isOwner) {
     blocks.push(
       { type: 'divider' },
@@ -564,7 +564,7 @@ export function buildHomeView({
           type: 'button',
         },
         text: mrkdwn(
-          '*Identity*\nSet an icon per message type. The name is always plain “kyto” — only the avatar changes.'
+          '*Identity*\nSet an icon per message type. The name is always plain “forkie” — only the avatar changes.'
         ),
         type: 'section',
       }
@@ -585,7 +585,7 @@ export function buildHomeView({
 }
 
 /**
- * "Your data" — what kyto has kept that came out of your conversations, and the
+ * "Your data" — what forkie has kept that came out of your conversations, and the
  * self-serve way to remove it. Everyone gets this section; the whole point is
  * that withdrawing consent should not require asking the bot owner.
  *
@@ -621,9 +621,9 @@ function privacyBlocks(privacy: ErasePreview | undefined): SlackBlock[] {
             confirm: plainText('Forget me'),
             deny: plainText('Cancel'),
             text: mrkdwn(
-              "Kyto will delete the memories you saved and its stored reasoning from your DM threads with it, and destroy your DM threads' sandbox workspaces. Your settings and API keys are kept. This cannot be undone."
+              "Forkie will delete the memories you saved and its stored reasoning from your DM threads with it, and destroy your DM threads' sandbox workspaces. Your settings and API keys are kept. This cannot be undone."
             ),
-            title: plainText('Forget what you told Kyto?'),
+            title: plainText('Forget what you told Forkie?'),
           },
           style: 'danger',
           text: plainText('Forget me'),
@@ -637,7 +637,7 @@ function privacyBlocks(privacy: ErasePreview | undefined): SlackBlock[] {
             text: mrkdwn(
               'Everything above, PLUS your custom instructions, MCP servers, saved model keys and any linked ChatGPT account. Reminders and hosted sites are left alone — delete those individually above. This cannot be undone.'
             ),
-            title: plainText('Delete all your Kyto data?'),
+            title: plainText('Delete all your Forkie data?'),
           },
           style: 'danger',
           text: plainText('Delete everything'),
@@ -693,7 +693,7 @@ export function buildIdentityModal(
     callback_id: 'home_save_identity',
     close: plainText('Cancel'),
     submit: plainText('Save'),
-    title: plainText('Kyto identity'),
+    title: plainText('Forkie identity'),
     type: 'modal',
   };
 }
@@ -745,7 +745,7 @@ export function buildModelKeyModal(
           placeholder: plainText('e.g. gpt-5.5'),
           type: 'plain_text_input',
         },
-        hint: plainText('The model id kyto should run for your turns.'),
+        hint: plainText('The model id forkie should run for your turns.'),
         label: plainText('Model'),
         type: 'input',
       },
@@ -890,7 +890,7 @@ export function buildPromptModal({
           type: 'plain_text_input',
         },
         hint: plainText(
-          'Kyto follows these instructions across every conversation.'
+          'Forkie follows these instructions across every conversation.'
         ),
         label: plainText('Your instructions'),
         type: 'input',

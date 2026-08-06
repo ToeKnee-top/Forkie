@@ -20,10 +20,10 @@ import logger from '@/lib/logger';
 import { errorMessage } from '@/lib/utils/error';
 
 /**
- * Self-serve erase: what kyto has derived from someone's conversations, removed
+ * Self-serve erase: what forkie has derived from someone's conversations, removed
  * by that person, without the bot owner in the loop.
  *
- * Consent is the point. Hack Club confirmed kyto's temporary storage is fine, but
+ * Consent is the point. Hack Club confirmed forkie's temporary storage is fine, but
  * until now withdrawing it meant asking the owner to delete memories on the
  * dashboard and then waiting out the ~30-day `thread_thinking` retention window.
  * "Ask the admin and wait a month" is not a consent withdrawal mechanism.
@@ -32,7 +32,7 @@ import { errorMessage } from '@/lib/utils/error';
  *
  *  - `thread_thinking` is keyed by THREAD, not user, and a channel thread's
  *    reasoning is derived from everyone who was in it. So only the user's own DM
- *    channel with kyto is erased. Reasoning in shared channels ages out on the
+ *    channel with forkie is erased. Reasoning in shared channels ages out on the
  *    normal retention window, and `summarize()` says so rather than implying a
  *    clean sweep.
  *  - A PROMOTED (global) memory belongs to the bot owner now; custody transfer is
@@ -84,7 +84,7 @@ export async function previewUserData(userId: string): Promise<ErasePreview> {
 /**
  * Erase this user's data. `includeSettings` also removes what they configured
  * (custom instructions, MCP servers, their own model keys, a linked ChatGPT
- * account) — kept separate because someone who wants kyto to forget what it
+ * account) — kept separate because someone who wants forkie to forget what it
  * learned about them does not necessarily want their API keys deleted too.
  *
  * Reminders and hosted sites are deliberately NOT touched: those are live things
@@ -113,7 +113,7 @@ export async function eraseUserData({
     }
   );
 
-  // The user's DM channel with kyto: the one conversation whose derived text is
+  // The user's DM channel with forkie: the one conversation whose derived text is
   // unambiguously theirs alone. openDM is idempotent and returns the existing
   // channel, so this does not create anything.
   const dmChannelId = await bot
@@ -141,7 +141,7 @@ export async function eraseUserData({
       }
     );
     // A compacted thread summary is the same class of derived text as the
-    // reasoning cache — kyto's own paraphrase of what was said — so it goes on
+    // reasoning cache — forkie's own paraphrase of what was said — so it goes on
     // the same terms and by the same channel-scoped rule.
     summarizedThreads = await deleteSummariesForChannel(dmChannelId).catch(
       (error: unknown) => {
@@ -275,7 +275,7 @@ export function summarize(result: EraseResult): string {
   }
   // Never let this read as a clean sweep when it isn't.
   lines.push(
-    "• kyto's reasoning and compacted history in SHARED channels are keyed by thread, not by person, and derived from everyone who was in it — they aren't deleted here, and age out on their own within about 30 days"
+    "• forkie's reasoning and compacted history in SHARED channels are keyed by thread, not by person, and derived from everyone who was in it — they aren't deleted here, and age out on their own within about 30 days"
   );
   if (result.promotedMemories.length > 0) {
     lines.push(
@@ -283,7 +283,7 @@ export function summarize(result: EraseResult): string {
     );
   }
   lines.push(
-    '\nSlack still holds the messages themselves — kyto reads your thread as context every turn and never stored a copy. Delete a message in Slack and it is gone from what kyto can see.'
+    '\nSlack still holds the messages themselves — forkie reads your thread as context every turn and never stored a copy. Delete a message in Slack and it is gone from what forkie can see.'
   );
   return lines.join('\n');
 }

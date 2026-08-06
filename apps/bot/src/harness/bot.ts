@@ -36,7 +36,7 @@ interface SocketEnvelope {
 }
 
 /**
- * kyto's own Slack app runtime: Socket Mode connection + event routing.
+ * forkie's own Slack app runtime: Socket Mode connection + event routing.
  * Replaces the chat-sdk `Chat` class. All handlers mirror the old names so
  * bot.ts and features port with minimal churn.
  */
@@ -196,7 +196,7 @@ export class KytoBot {
           envelope
             .ack({
               response_type: 'ephemeral',
-              text: "hi, i'm kyto! just @mention me in a channel or DM me — no slash command needed.",
+              text: "hi, i'm forkie! just @mention me in a channel or DM me — no slash command needed.",
             })
             .catch((error: unknown) => {
               this.slackLogger.warn(
