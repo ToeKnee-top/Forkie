@@ -211,15 +211,19 @@ async function eraseDmSandboxes({
   );
   let killed = 0;
   for (const row of rows) {
-    await killSandbox(row.sandboxId, env.E2B_API_KEY).catch(
-      (error: unknown) => {
-        // Already gone (expired, reaped) is the common case and not a failure.
-        logger.info(
-          { err: errorMessage(error), sandboxId: row.sandboxId },
-          '[erase] sandbox was already gone'
-        );
-      }
-    );
+    // Killing is E2B-only: local/ssh providers have no sandbox ids to kill. The
+    // store row is cleared either way.
+    if (env.E2B_API_KEY) {
+      await killSandbox(row.sandboxId, env.E2B_API_KEY).catch(
+        (error: unknown) => {
+          // Already gone (expired, reaped) is the common case and not a failure.
+          logger.info(
+            { err: errorMessage(error), sandboxId: row.sandboxId },
+            '[erase] sandbox was already gone'
+          );
+        }
+      );
+    }
     await clearThreadSandbox(row.threadId).catch(() => undefined);
     killed += 1;
   }

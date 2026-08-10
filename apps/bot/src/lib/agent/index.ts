@@ -12,7 +12,7 @@ import {
   systemPrompt,
   visionAttempt,
 } from '@repo/ai';
-import { LazySandbox } from '@repo/sandbox';
+import { createSandbox } from '@/lib/sandbox/provider';
 import { env } from '@/env';
 import type { Message, StreamChunk, ThreadHandle } from '@/harness';
 import {
@@ -214,17 +214,18 @@ async function executeTurn(
     ? slackProxyEnv(slackProxySecret, env.SITES_PUBLIC_HOST)
     : {};
 
-  // The lazy sandbox: creating this object is free — the real E2B sandbox
-  // materializes only when a tool first touches it. It is PER-THREAD and
-  // PERSISTENT: destroy() pauses it rather than killing it, and the next turn in
-  // this thread reconnects to the same filesystem, so files kyto wrote earlier
-  // are still there. The store is what makes it persistent (see sandbox/store).
-  const sandboxSession = new LazySandbox({
-    apiKey: env.E2B_API_KEY,
+  // The sandbox: creating this object is free — the backing sandbox only
+  // materializes when a tool first touches it. Which provider backs it is
+  // config-driven: SSH_SANDBOX_HOST => SSH to a box you own; else E2B_API_KEY
+  // => the E2B-backed sandbox (paused/remembered per thread); else run locally
+  // in this container — no E2B account or card verification needed. For local,
+  // persistence is free: the filesystem just IS the state, so files written
+  // earlier are still there next turn.
+  const sandboxSession = await createSandbox(env, {
     // Puts `slack <method>` on PATH, so the plain `bash` tool can query Slack
     // read-only too — not just the slackScript tool.
     bootstrapCommand: slackProxySecret ? slackHelperInstall() : undefined,
-    env: proxyEnv,
+    baseEnv: proxyEnv,
     // Only a token GitHub still accepts. Brokering a dead one attaches an
     // Authorization header GitHub rejects to EVERY github.com request, which
     // breaks anonymous reads of PUBLIC repos too (see lib/github/token).

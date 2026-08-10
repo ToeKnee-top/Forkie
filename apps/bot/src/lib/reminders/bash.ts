@@ -1,8 +1,8 @@
 import type { Reminder } from '@repo/db/queries';
-import { LazySandbox, runOnce } from '@repo/sandbox';
 import { env } from '@/env';
 import { brokerableGithubToken } from '@/lib/github/token';
 import logger from '@/lib/logger';
+import { createSandbox } from '@/lib/sandbox/provider';
 import { threadSandboxStore, withThreadSandbox } from '@/lib/sandbox/store';
 import {
   registerProxyToken,
@@ -58,15 +58,21 @@ export async function runReminderBash(reminder: Reminder): Promise<string> {
     throw new Error("Bash reminder is missing a 'command'.");
   }
   if (!reminder.threadId) {
-    return format(await runOnce(command, env.E2B_API_KEY));
+    // One-shot job with no thread sandbox to reuse. Use the configured provider
+    // (local, ssh, or E2B), run once, and tear it down.
+    const sandbox = await createSandbox(env, { logger });
+    try {
+      return format(await sandbox.run({ command }));
+    } finally {
+      await sandbox.destroy().catch(() => undefined);
+    }
   }
   const threadId = reminder.threadId;
   return await withThreadSandbox(threadId, async () => {
     const secret = env.SITES_ENABLED ? registerProxyToken() : undefined;
-    const sandbox = new LazySandbox({
-      apiKey: env.E2B_API_KEY,
+    const sandbox = await createSandbox(env, {
       bootstrapCommand: secret ? slackHelperInstall() : undefined,
-      env: secret ? slackProxyEnv(secret, env.SITES_PUBLIC_HOST) : {},
+      baseEnv: secret ? slackProxyEnv(secret, env.SITES_PUBLIC_HOST) : {},
       githubToken: await brokerableGithubToken(),
       logger,
       sessionId: threadId,

@@ -5,7 +5,7 @@ import {
   subagentSystemPrompt,
 } from '@repo/ai';
 import type { Reminder } from '@repo/db/queries';
-import { LazySandbox } from '@repo/sandbox';
+import { createSandbox } from '@/lib/sandbox/provider';
 import { env } from '@/env';
 import type { Message, ThreadHandle } from '@/harness';
 import { requestHints } from '@/lib/ai/hints';
@@ -127,10 +127,9 @@ async function runAgent(
   // A fresh proxy token for this fire (the creating turn's was revoked long
   // ago), so the job's bash/slackScript tools can read Slack.
   const secret = env.SITES_ENABLED ? registerProxyToken() : undefined;
-  const sandboxSession = new LazySandbox({
-    apiKey: env.E2B_API_KEY,
+  const sandboxSession = await createSandbox(env, {
     bootstrapCommand: secret ? slackHelperInstall() : undefined,
-    env: secret ? slackProxyEnv(secret, env.SITES_PUBLIC_HOST) : {},
+    baseEnv: secret ? slackProxyEnv(secret, env.SITES_PUBLIC_HOST) : {},
     githubToken: await brokerableGithubToken(),
     logger,
     // Sharing the thread's sandbox is the whole point: the job can use what the
