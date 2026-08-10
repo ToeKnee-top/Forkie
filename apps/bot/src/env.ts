@@ -51,7 +51,18 @@ export const env = createEnv({
     // unless it is set, and short passwords are rejected outright.
     DASHBOARD_PASSWORD: z.string().min(12).optional(),
 
-    E2B_API_KEY: z.string().min(1),
+    E2B_API_KEY: z.string().min(1).optional(),
+    // Sandbox provider selection: SSH_SANDBOX_HOST => code runs over SSH on a
+    // box you own; else E2B_API_KEY => the E2B-backed per-thread sandbox; else
+    // run locally in this container (no E2B account/card needed). SANDBOX_WORKDIR
+    // is the base dir for the local provider.
+    SSH_SANDBOX_HOST: z.string().optional(),
+    SSH_SANDBOX_USER: z.string().optional(),
+    SSH_SANDBOX_PORT: z.coerce.number().optional(),
+    SSH_SANDBOX_PRIVATE_KEY: z.string().optional(),
+    SSH_SANDBOX_WORKDIR: z.string().optional(),
+    SSH_SANDBOX_BOOTSTRAP: z.string().optional(),
+    SANDBOX_WORKDIR: z.string().optional(),
     AGENTMAIL_API_KEY: z.string().min(1).optional(),
     // GitHub CLI token for the `gh` tool (injected per-call into the sandbox,
     // never persisted as a shell env var). Tool is registered only when set.

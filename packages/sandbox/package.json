@@ -15,11 +15,13 @@
     "@e2b/code-interpreter": "^2.6.1",
     "@repo/logging": "workspace:*",
     "dotenv": "catalog:",
-    "e2b": "catalog:"
+    "e2b": "catalog:",
+    "ssh2": "^1.15.0"
   },
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",
     "@types/bun": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/ssh2": "^1.15.0"
   }
 }

@@ -12,3 +12,17 @@ export {
   type SandboxStore,
 } from './lazy-sandbox';
 export { killSandbox, type RunOnceResult, runOnce } from './run-once';
+export {
+  LocalSandbox,
+  localSandboxConfigured,
+  localSandboxFromEnv,
+  type LocalSandboxOptions,
+} from './local-sandbox';
+export {
+  SshSandbox,
+  sshSandboxConfigured,
+  sshSandboxFromEnv,
+  type CommandResult,
+  type SshSandboxOptions,
+  type SshSandboxState,
+} from './ssh-sandbox';
