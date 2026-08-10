@@ -196,7 +196,7 @@ export class KytoBot {
           envelope
             .ack({
               response_type: 'ephemeral',
-              text: "hi, i'm kyto! just @mention me in a channel or DM me — no slash command needed.",
+              text: "hi, i'm forkie! just @mention me in a channel or DM me — no slash command needed.",
             })
             .catch((error: unknown) => {
               this.slackLogger.warn(

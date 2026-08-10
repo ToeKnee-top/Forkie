@@ -4,7 +4,7 @@ const mentionPattern = /<@([A-Z0-9_]+)(?:\|([^<>]+))?>/g;
 // The bot's Slack username is a leftover gorkie-era handle (`gorkie__devansh_`),
 // so resolving its own mention by username makes the agent think *gorkie* was
 // mentioned. Always annotate the bot's own id with its real name instead.
-const BOT_NAME = 'kyto';
+const BOT_NAME = 'forkie';
 
 export async function annotateMentions(text: string): Promise<string> {
   const mentionNames = new Map<string, string>();

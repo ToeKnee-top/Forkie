@@ -128,33 +128,33 @@ export function agentErrorMessage({
   // provider's raw rejection into a possibly-public channel — the detail lives
   // in their App Home tab, where only they can see it.
   if (error instanceof ByokExhaustedError) {
-    return "_kyto couldn't run this on your own model key — every key you added failed. check the Model keys section of kyto's App Home tab for what the provider said, or turn on shared-model fallback there._";
+    return "_forkie couldn't run this on your own model key — every key you added failed. check the Model keys section of forkie's App Home tab for what the provider said, or turn on shared-model fallback there._";
   }
   if (error instanceof BudgetExhaustedError) {
     const amount = message.match(SPEND_AMOUNT_PATTERN)?.[0] ?? '$3';
     const { hours, minutes } = timeUntilUkReset();
-    return `_kyto's daily model budget (${amount}/day) is used up — every model is out of credits for today. it resets at UK midnight, in ${hours}h ${minutes}m._`;
+    return `_forkie's daily model budget (${amount}/day) is used up — every model is out of credits for today. it resets at UK midnight, in ${hours}h ${minutes}m._`;
   }
   // Kyto assembled a prompt the SDK refuses to send. No model ever saw it, so
   // "the provider failed" would be a lie and "try again" is useless advice —
   // the same thread state rebuilds the same broken prompt. Say what it is.
   if (isPromptConstructionError(error)) {
-    return '_kyto built a malformed prompt for this turn and could not send it — that is a bug in kyto, not a model outage. starting a new thread works around it._';
+    return '_kyto built a malformed prompt for this turn and could not send it — that is a bug in forkie, not a model outage. starting a new thread works around it._';
   }
   if (stage === 'after_text') {
-    return '_kyto hit an error after it had already started responding. the reply above may be partial; send a follow-up and kyto can continue from the current thread state._';
+    return '_forkie hit an error after it had already started responding. the reply above may be partial; send a follow-up and forkie can continue from the current thread state._';
   }
   if (stage === 'after_progress') {
-    return '_kyto hit an error after it had already shown progress. the task rows above show what completed; send a follow-up and kyto can continue from the current thread state._';
+    return '_forkie hit an error after it had already shown progress. the task rows above show what completed; send a follow-up and kyto can continue from the current thread state._';
   }
   if (CREDIT_ERROR_PATTERN.test(message)) {
-    return '_kyto is out of model credits for this request. try again later or ask for a shorter/smaller result._';
+    return '_forkie is out of model credits for this request. try again later or ask for a shorter/smaller result._';
   }
   if (CONTEXT_ERROR_PATTERN.test(message)) {
     return '_that request is too large for the current model budget. try a shorter prompt or start a new thread._';
   }
   if (PROVIDER_TIMEOUT_PATTERN.test(message)) {
-    return '_kyto hit a model provider timeout. try again in a bit, or send a shorter follow-up so kyto can continue from the current thread state._';
+    return '_forkie hit a model provider timeout. try again in a bit, or send a shorter follow-up so forkie can continue from the current thread state._';
   }
   return '_oops, something went wrong._';
 }

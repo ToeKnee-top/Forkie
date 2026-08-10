@@ -104,7 +104,7 @@ export function runSubagentTool({
 
   const runSubagent = tool({
     description:
-      'Delegate a task to a subagent — a headless copy of kyto (shares your sandbox, same tools) that runs on a cheaper pinned model and returns a written report to you. Its run shows up inside your own plan/thinking block as it works; it does NOT post a message of its own, so YOU are the only voice in the thread and its findings only reach the user if you say them. Use it for open-ended investigation or self-contained work that would otherwise clutter your own context. It has NO access to this conversation beyond what you put in the task. By default it runs FOREGROUND (you wait for its report, then use it). Set background:true to fire it off and keep working immediately — you get a job id back instead of the report, and later call checkSubagent with that id to collect it.',
+      'Delegate a task to a subagent — a headless copy of Forkie (shares your sandbox, same tools) that runs on a cheaper pinned model and returns a written report to you. Its run shows up inside your own plan/thinking block as it works; it does NOT post a message of its own, so YOU are the only voice in the thread and its findings only reach the user if you say them. Use it for open-ended investigation or self-contained work that would otherwise clutter your own context. It has NO access to this conversation beyond what you put in the task. By default it runs FOREGROUND (you wait for its report, then use it). Set background:true to fire it off and keep working immediately — you get a job id back instead of the report, and later call checkSubagent with that id to collect it.',
     inputSchema: z.object({
       task: z
         .string()
@@ -116,7 +116,7 @@ export function runSubagentTool({
         .string()
         .optional()
         .describe(
-          'Optional short name for this subagent (e.g. "researcher"), used to label its cards in your plan as "kyto subagent {name}".'
+          'Optional short name for this subagent (e.g. "researcher"), used to label its cards in your plan as "forkie subagent {name}".'
         ),
       background: z
         .boolean()
@@ -168,7 +168,7 @@ export function runSubagentTool({
           // purpose (owner's call): the name is only ever "kyto",
           // "kyto subagent", or "kyto subagent {name}" — nothing configurable
           // decorates it, and there is no icon override.
-          const label = name ? `kyto subagent ${name}` : 'kyto subagent';
+          const label = name ? `forkie subagent ${name}` : 'forkie subagent';
 
           let close: (() => Promise<void>) | undefined;
           let ranTools = false;

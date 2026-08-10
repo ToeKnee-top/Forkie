@@ -12,7 +12,7 @@ const DM_CHANNEL_ID = /^D[A-Z0-9]+$/i;
 const GROUP_CHANNEL_ID = /^(G[A-Z0-9]+|mpdm-)/i;
 
 const UNREACHABLE_CONVERSATION =
-  'That is a DM or private conversation. Kyto is not a member of it and CANNOT read it — this is a hard Slack limit, not a permission you can request, and no other tool will get at it either. Do not retry with a different tool. Ask the person to paste the text, forward the message into a channel kyto is in, or say what it said.';
+  'That is a DM or private conversation. Forkie is not a member of it and CANNOT read it — this is a hard Slack limit, not a permission you can request, and no other tool will get at it either. Do not retry with a different tool. Ask the person to paste the text, forward the message into a channel Forkie is in, or say what it said.';
 
 export async function assertReadableChannel(
   chatChannelId: string,
@@ -37,7 +37,7 @@ export async function assertReadableChannel(
       // `channel_not_found` to the model.
       if (/channel_not_found|not_in_channel/i.test(errorMessage(error))) {
         throw new Error(
-          `Kyto cannot see that conversation (${raw}). If it is a public channel, kyto can join it and read it — check the id is right. If it is a DM or a private channel kyto is not in, it is unreadable: ask for the content instead of retrying.`
+          `Forkie cannot see that conversation (${raw}). If it is a public channel, Forkie can join it and read it — check the id is right. If it is a DM or a private channel Forkie is not in, it is unreadable: ask for the content instead of retrying.`
         );
       }
       throw error;

@@ -63,8 +63,8 @@ function page(title: string, body: string): string {
 
 export function loginPage(error?: string): string {
   return page(
-    'kyto dashboard',
-    `<h1>kyto dashboard</h1>
+    'forkie dashboard',
+    `<h1>forkie dashboard</h1>
 <p class="muted">Owner only.</p>
 ${error ? `<p class="err">${escapeHtml(error)}</p>` : ''}
 <form method="post" action="/_dashboard/login">
@@ -141,8 +141,8 @@ export function overviewPage({
   const pending = memories.filter((memory) => !memory.isGlobal);
   const global = memories.filter((memory) => memory.isGlobal);
   return page(
-    'kyto dashboard',
-    `<div class="row"><h1>kyto dashboard</h1>
+    'forkie dashboard',
+    `<div class="row"><h1>forkie dashboard</h1>
   <form method="post" action="/_dashboard/logout">${hidden(csrf)}
     <button type="submit">Sign out</button></form></div>
 
@@ -156,7 +156,7 @@ ${
 <h2>GitHub trust (${trust.length})</h2>
 ${
   trust.length === 0
-    ? '<p class="muted">Nobody is trusted to write to repos kyto does not own.</p>'
+    ? '<p class="muted">Nobody is trusted to write to repos forkie does not own.</p>'
     : `<table><tr><th>User</th><th>Scope</th><th></th></tr>${trust.map((row) => trustRow(row, csrf, names)).join('')}</table>`
 }
 <div class="actions">

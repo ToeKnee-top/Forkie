@@ -164,13 +164,13 @@ export function scheduleRecurringReminderTool({
 }) {
   const isOwner = isOwnerOf(message);
   return tool({
-    description: `Schedule a RECURRING task for the user who sent the current message — kyto repeatedly posts on the schedule until cancelled or its run cap is reached. By default it DMs that user; the owner may also target a channel. For a one-time reminder, use scheduleReminder instead.
+    description: `Schedule a RECURRING task for the user who sent the current message — forkie repeatedly posts on the schedule until cancelled or its run cap is reached. By default it DMs that user; the owner may also target a channel. For a one-time reminder, use scheduleReminder instead.
 
 Four kinds, each recomputing its message at fire time except 'message':
 - 'message' (default): posts \`text\` verbatim. Min interval 60s.
 - 'script': fetches \`url\` and posts its content, prefixed by \`text\`. Min interval 60s.
 - 'bash': runs \`command\` and posts its exact stdout/stderr, prefixed by \`text\`. It runs in THIS THREAD'S sandbox, which persists — so write a script to a file now, and the reminder can run it on every fire. Min interval 5 minutes.
-- 'agent': runs \`text\` as instructions for a headless kyto with the full toolset (it can search, read Slack history, run bash, and decide what to say), and posts whatever it replies. Use this when the message must be computed fresh each time. Min interval 1 hour, since each fire is a real model run.
+- 'agent': runs \`text\` as instructions for a headless forkie with the full toolset (it can search, read Slack history, run bash, and decide what to say), and posts whatever it replies. Use this when the message must be computed fresh each time. Min interval 1 hour, since each fire is a real model run.
 
 Only the person who asked for it can change it later, unless they name other people in \`editors\`.`,
     inputSchema: z.object({

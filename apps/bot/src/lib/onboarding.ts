@@ -34,12 +34,12 @@ export async function offerOptIn(
     await thread.post({
       blocks: [
         {
-          text: plainText(':wave: first time meeting kyto'),
+          text: plainText(':wave: first time meeting forkie'),
           type: 'header',
         },
         {
           text: mrkdwn(
-            `hi <@${user.userId}>! i'm kyto. before i can help, you need to accept the terms posted in <#${env.OPT_IN_CHANNEL}>.`
+            `hi <@${user.userId}>! i'm forkie. before i can help, you need to accept the terms posted in <#${env.OPT_IN_CHANNEL}>.`
           ),
           type: 'section',
         },
@@ -62,7 +62,7 @@ export async function offerOptIn(
           type: 'actions',
         },
       ],
-      fallbackText: 'kyto opt-in: accept the terms to get started.',
+      fallbackText: 'forkie opt-in: accept the terms to get started.',
     });
   } catch (error) {
     logger.warn(
@@ -79,7 +79,7 @@ export async function acceptOptIn(event: ActionEvent): Promise<void> {
   await event.thread
     ?.postEphemeral(
       event.user,
-      "you're all set, welcome to kyto. ask me anything.",
+      "you're all set, welcome to forkie. ask me anything.",
       { fallbackToDM: true }
     )
     .catch((error: unknown) => {

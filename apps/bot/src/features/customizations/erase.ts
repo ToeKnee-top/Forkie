@@ -275,7 +275,7 @@ export function summarize(result: EraseResult): string {
   }
   // Never let this read as a clean sweep when it isn't.
   lines.push(
-    "• kyto's reasoning and compacted history in SHARED channels are keyed by thread, not by person, and derived from everyone who was in it — they aren't deleted here, and age out on their own within about 30 days"
+    "• forkie's reasoning and compacted history in SHARED channels are keyed by thread, not by person, and derived from everyone who was in it — they aren't deleted here, and age out on their own within about 30 days"
   );
   if (result.promotedMemories.length > 0) {
     lines.push(
@@ -283,7 +283,7 @@ export function summarize(result: EraseResult): string {
     );
   }
   lines.push(
-    '\nSlack still holds the messages themselves — kyto reads your thread as context every turn and never stored a copy. Delete a message in Slack and it is gone from what kyto can see.'
+    '\nSlack still holds the messages themselves — forkie reads your thread as context every turn and never stored a copy. Delete a message in Slack and it is gone from what forkie can see.'
   );
   return lines.join('\n');
 }

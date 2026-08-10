@@ -113,7 +113,7 @@ export class McpConnection {
         'initialize',
         {
           capabilities: {},
-          clientInfo: { name: 'kyto', version: '1.0.0' },
+          clientInfo: { name: 'forkie', version: '1.0.0' },
           protocolVersion: PROTOCOL_VERSION,
         },
         { timeoutMs: CONNECT_TIMEOUT_MS }

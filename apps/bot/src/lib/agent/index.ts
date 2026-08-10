@@ -285,7 +285,7 @@ async function executeTurn(
     if (hints.customization?.prompt && !slack.isDM(thread.id)) {
       await thread
         .post({
-          markdown: "_kyto's responses are shaped by this user's instructions_",
+          markdown: "_forkie's responses are shaped by this user's instructions_",
         })
         .catch(() => undefined);
     }
@@ -1008,7 +1008,7 @@ async function executeTurn(
               promptShape: describeMalformedPrompt(error),
               threadId,
             },
-            '[agent] prompt construction failed; this is a kyto bug, not a model failure — not falling back'
+            '[agent] prompt construction failed; this is a forkie bug, not a model failure — not falling back'
           );
           throw error;
         }

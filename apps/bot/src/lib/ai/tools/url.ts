@@ -87,7 +87,7 @@ export async function fetchUrlText(url: string): Promise<{
     );
   }
   const response = await fetch(url, {
-    headers: { 'User-Agent': 'kyto-slack-bot' },
+    headers: { 'User-Agent': 'forkie-slack-bot' },
     signal: AbortSignal.timeout(15_000),
   });
   if (!response.ok) {

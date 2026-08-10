@@ -24,7 +24,7 @@ async function fetchAddress(): Promise<string | null> {
     const { inboxes } = await client.inboxes.list();
     return inboxes.at(0)?.inboxId ?? null;
   } catch (error) {
-    logger.warn({ err: error }, '[email] failed to resolve kyto inbox address');
+    logger.warn({ err: error }, '[email] failed to resolve forkie inbox address');
     return null;
   }
 }

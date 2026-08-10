@@ -77,7 +77,7 @@ function notice(stats: ClipStats, savedPath: string | undefined): string {
   return [
     '',
     `[... ${formatNumber(stats.hiddenLines)} LINES NOT SHOWN ...]`,
-    `[kyto truncated this output: ${formatNumber(stats.totalLines)} lines / ${formatNumber(stats.totalChars)} chars total, of which you are seeing the first ${formatNumber(stats.headLines)} and the last ${formatNumber(stats.tailLines)}. Do NOT conclude anything from what is absent here — if what you need could be in the hidden middle, go and look. ${where}]`,
+    `[forkie truncated this output: ${formatNumber(stats.totalLines)} lines / ${formatNumber(stats.totalChars)} chars total, of which you are seeing the first ${formatNumber(stats.headLines)} and the last ${formatNumber(stats.tailLines)}. Do NOT conclude anything from what is absent here — if what you need could be in the hidden middle, go and look. ${where}]`,
     '',
   ].join('\n');
 }

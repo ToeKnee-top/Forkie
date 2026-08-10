@@ -25,9 +25,9 @@ const MAX_THREAD_MESSAGES = 100;
 // messages are still lost, and the block's count says how many were kept.
 const MAX_COMPACTION_MESSAGES = 400;
 // The bot's Slack username is a leftover gorkie-era handle; label its own
-// authored messages as kyto so it doesn't think "gorkie" spoke (mirrors the
+// authored messages as forkie so it doesn't think "gorkie" spoke (mirrors the
 // same special-case in annotateMentions).
-const BOT_NAME = 'kyto';
+const BOT_NAME = 'forkie';
 
 function authorLabel(message: Message): string {
   if (slack.botUserId && message.author.userId === slack.botUserId) {
@@ -56,7 +56,7 @@ export async function buildPrompt(
 ): Promise<string> {
   const current = await renderMessage(message);
 
-  // What kyto was THINKING on this thread's last few turns. Slack replayed above
+  // What forkie was THINKING on this thread's last few turns. Slack replayed above
   // only records what it said, so without this each turn re-derives the reasoning
   // (and the dead ends) of the one before it.
   const thinking = thread
