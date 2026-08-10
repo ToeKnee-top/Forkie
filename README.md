@@ -76,6 +76,7 @@ bun run db:push
 # Start the Slack bot
 bun run start:bot
 ```
+You can also ask @Forkie in slack for help!
 
 Local development uses Slack Socket Mode, so the bot does not need a public HTTP
 tunnel just to receive Slack events.
