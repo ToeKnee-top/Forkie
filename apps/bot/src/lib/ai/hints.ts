@@ -4,7 +4,11 @@ import { env } from '@/env';
 import type { Message, ThreadHandle as Thread } from '@/harness';
 import { slack } from '@/lib/chat';
 import { resolveKytoEmail } from '@/lib/email/address';
-import { resolveChannelName, resolveWorkspaceName } from '@/lib/slack/names';
+import {
+  resolveChannelName,
+  resolveUserName,
+  resolveWorkspaceName,
+} from '@/lib/slack/names';
 
 export async function requestHints({
   message,
@@ -15,7 +19,7 @@ export async function requestHints({
 }): Promise<RequestHints> {
   const channelId = slack.channelIdFromThreadId(thread.id);
   const { channel: rawChannelId } = slack.decodeThreadId(thread.id);
-  const [channel, workspace, customization, memories, email] =
+  const [channel, workspace, customization, memories, email, ownerName] =
     await Promise.all([
       resolveChannelName(rawChannelId),
       resolveWorkspaceName(),
@@ -26,6 +30,11 @@ export async function requestHints({
       listMemoryIndex(message.author.userId).catch(() => []),
       // Cached after the first resolve — no per-turn AgentMail call.
       resolveKytoEmail().catch(() => undefined),
+      // The account behind OWNER_USER_ID becomes the source of the owner's
+      // name (real name else display name), cached 24h. See resolveUserName.
+      env.OWNER_USER_ID
+        ? resolveUserName(env.OWNER_USER_ID).catch(() => undefined)
+        : undefined,
     ]);
   return {
     botUserId: slack.botUserId,
@@ -37,6 +46,7 @@ export async function requestHints({
     email,
     memories,
     messageId: message.id,
+    ownerName,
     ownerUserId: env.OWNER_USER_ID,
     githubLogin: env.GH_LOGIN,
     workspace,

@@ -14,6 +14,9 @@ export interface RequestHints {
   // knowledge exists and can fetch the full body when relevant.
   memories?: { title: string; createdBy?: string; isGlobal?: boolean }[];
   messageId?: string;
+  // Name resolved live from the Slack account behind OWNER_USER_ID (real name
+  // else display name). Lets the account, not a hardcoded string, name the owner.
+  ownerName?: string;
   ownerUserId?: string;
   threadId: string;
   time: string;
