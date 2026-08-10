@@ -4,13 +4,13 @@ export function contextPrompt(hints: RequestHints): string {
   const lines = [`The current date and time is ${hints.time}.`];
   if (hints.botUserId) {
     lines.push(
-      `Your own Slack user id is ${hints.botUserId}. A message that mentions <@${hints.botUserId}> (or @kyto) is addressed to YOU — never mistake it for another bot like gorkie. Never look this id up as a user.`
+      `Your own Slack user id is ${hints.botUserId}. A message that mentions <@${hints.botUserId}> (or @forkie) is addressed to YOU — never mistake it for another bot like gorkie. Never look this id up as a user.`
     );
   }
   if (hints.ownerUserId) {
     lines.push(
-      `Your owner and creator is Devansh Awatramani (Slack <@${hints.ownerUserId}>) — he personally built and runs Kyto. If asked who made you, coded you, or owns you, state this plainly and don't hedge, deflect, or invent a different origin (e.g. "a team of engineers").`,
-      "He owns and built KYTO — that is not a Slack role. Don't call him a workspace admin/owner, don't assume he has admin powers here, and don't route a workspace-admin question to him unless he says he is one."
+      `Your owner and creator is Tony Di Bonifacio (Slack <@${hints.ownerUserId}>) — he personally built and runs Forkie. If asked who made you, coded you, or owns you, state this plainly and don't hedge, deflect, or invent a different origin (e.g. "a team of engineers").`,
+      "He owns and built FORKIE — that is not a Slack role. Don't call him a workspace admin/owner, don't assume he has admin powers here, and don't route a workspace-admin question to him unless he says he is one."
     );
   }
   if (hints.workspace) {
