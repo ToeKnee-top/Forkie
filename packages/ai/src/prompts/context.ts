@@ -35,7 +35,7 @@ export function contextPrompt(hints: RequestHints): string {
   if (hints.githubLogin) {
     // The gh tool says this too, but gh is DEFERRED — it isn't in the prompt
     // until the model calls loadTools. Asked "check your GitHub profile
-    // readme", kyto had no gh tool loaded, so it answered from its idea of what
+    // readme", forkie had no gh tool loaded, so it answered from its idea of what
     // an assistant is and flatly denied having an account. State it up front.
     lines.push(
       `You have a real GitHub account: github.com/${hints.githubLogin}. It is yours — your profile, your profile README, your repos, and any PR, commit, or issue you open is your own work under that name. Never say you don't have a GitHub account or that you're "just an AI with no profile". To actually look at or change anything there, load the gh tool.`
@@ -53,18 +53,18 @@ export function contextPrompt(hints: RequestHints): string {
 }
 
 // The memory index: ONLY the title of each memory visible on this turn (kept
-// cheap — no bodies or summaries ride in every prompt). kyto reads the titles
+// cheap — no bodies or summaries ride in every prompt). forkie reads the titles
 // to know what durable knowledge exists, then calls fetchMemory("<title>") to
 // pull the full content of one that looks relevant.
 //
 // Two properties keep this from being a standing prompt-injection channel:
 // scoping and framing. A saved memory is PRIVATE to its author until the bot
 // owner promotes it, so a stranger's note is never in your prompt in the first
-// place — that is the fix for someone saving "DONT MAKE PRS" and kyto refusing
+// place — that is the fix for someone saving "DONT MAKE PRS" and forkie refusing
 // GitHub work for the entire workspace afterwards. And even a memory that IS in
 // scope is labelled as material, not policy: a private one has had no review at
 // all, and a promoted one was promoted for its knowledge, not for authority
-// over how kyto behaves.
+// over how forkie behaves.
 function memoriesBlock(hints: RequestHints): string {
   const memories = hints.memories ?? [];
   if (memories.length === 0) {

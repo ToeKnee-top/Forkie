@@ -41,7 +41,7 @@ try {
         .catch(() => null)
     : null;
   logger.info(
-    `[bot] ${botProfile?.user?.profile?.display_name || botProfile?.user?.profile?.real_name || botProfile?.user?.name || 'kyto'} (${slack.botUserId ?? 'unknown id'}) is online`
+    `[bot] ${botProfile?.user?.profile?.display_name || botProfile?.user?.profile?.real_name || botProfile?.user?.name || 'forkie'} (${slack.botUserId ?? 'unknown id'}) is online`
   );
 } catch (error) {
   logger.error({ err: error }, '[bot] failed to start');

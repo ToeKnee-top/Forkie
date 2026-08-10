@@ -15,7 +15,7 @@ import { errorMessage } from '@/lib/utils/error';
  * to check LATER — it has to be checked here, at start time, against the person
  * whose turn this is. Where there is no such person (a reminder job runs with no
  * principal at all) a mutating GitHub command is REFUSED rather than allowed:
- * kyto has one GitHub identity, and an unattended context cannot consent to a
+ * forkie has one GitHub identity, and an unattended context cannot consent to a
  * write on somebody's behalf.
  */
 async function guardBackgroundGithub({

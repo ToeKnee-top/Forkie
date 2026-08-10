@@ -41,7 +41,7 @@ export async function executePostMessage(
   }: {
     /**
      * Whether this post may carry a real @channel/@here ping. Only the caller
-     * knows — the gate is "owner AND the channel kyto was invoked in" — and
+     * knows — the gate is "owner AND the channel forkie was invoked in" — and
      * `ThreadHandle.post` strips broadcasts unless told otherwise, so an
      * omitted flag fails CLOSED.
      */
@@ -128,7 +128,7 @@ export function postMessageTool({
     ? 'Post to another target. Type must be thread, channel, or user.'
     : "You may post into the current channel/thread (type thread or channel, the same channel you were mentioned in) freely. A DM to a user (type user) is held until the owner clicks Confirm, which can take a while or never come. Posting into a DIFFERENT channel is queued for the owner's approval — it is posted in this thread with Approve/Deny buttons, never expires, and nothing is sent unless they approve. Say it is waiting; do not claim it was sent, and do not look for another way to send it.";
   return tool({
-    description: `Post a message. ${permission} Body is markdown; pass \`blocks\` to send Block Kit instead (the markdown body is then the notification fallback text). Broadcast pings (<!channel>/<!here>/<!everyone>) NEVER survive a post into a different channel or a DM — they are stripped to plain text there even for the owner, who can only broadcast in the channel kyto was invoked in.${
+    description: `Post a message. ${permission} Body is markdown; pass \`blocks\` to send Block Kit instead (the markdown body is then the notification fallback text). Broadcast pings (<!channel>/<!here>/<!everyone>) NEVER survive a post into a different channel or a DM — they are stripped to plain text there even for the owner, who can only broadcast in the channel forkie was invoked in.${
       isOwner
         ? ' You can post under a custom identity: `asName` + `asIcon` for a fully custom display name and avatar, or `asUser` (a user/bot id or @mention) to post looking like that person/bot (their name + avatar). Slack still marks it as an app.'
         : ''
@@ -138,7 +138,7 @@ export function postMessageTool({
         .string()
         .optional()
         .describe(
-          `Optional Block Kit payload: a JSON array of up to ${MAX_BLOCKS} blocks (e.g. [{"type":"section","text":{"type":"mrkdwn","text":"hi"}}]). Replaces the markdown body; \`message\` is still sent as the notification fallback. Do NOT append a "Posted by kyto"/"sent by kyto in #channel" or any author/attribution context block — Slack already shows who sent the message and the channel, so such a footer is noise; only include blocks that carry real content.`
+          `Optional Block Kit payload: a JSON array of up to ${MAX_BLOCKS} blocks (e.g. [{"type":"section","text":{"type":"mrkdwn","text":"hi"}}]). Replaces the markdown body; \`message\` is still sent as the notification fallback. Do NOT append a "Posted by forkie"/"sent by forkie in #channel" or any author/attribution context block — Slack already shows who sent the message and the channel, so such a footer is noise; only include blocks that carry real content.`
         ),
       id: z.string().min(1),
       message: z
@@ -154,7 +154,7 @@ export function postMessageTool({
         .string()
         .optional()
         .describe(
-          "Owner only. Custom display name to post under (overrides kyto's name and any asUser name)."
+          "Owner only. Custom display name to post under (overrides forkie's name and any asUser name)."
         ),
       asIcon: z
         .string()
@@ -213,7 +213,7 @@ export function postMessageTool({
         };
       }
       // Broadcast pings are owner-only AND here-only: a post that lands anywhere
-      // other than the channel kyto was invoked in never notifies, even for the
+      // other than the channel forkie was invoked in never notifies, even for the
       // owner. Being allowed to post into #announcements is not the same as
       // being allowed to @channel a room kyto isn't part of the conversation in
       // — the owner can send that ping from the channel itself if they mean it.

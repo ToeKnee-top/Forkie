@@ -48,7 +48,7 @@ export function sendEmailTool({ apiKey }: { apiKey: string }) {
   const client = new AgentMailClient({ apiKey });
   return tool({
     description:
-      "Send an email from kyto's own inbox (via AgentMail). Use for sending messages, notifications, or replies to external email addresses.",
+      "Send an email from forkie's own inbox (via AgentMail). Use for sending messages, notifications, or replies to external email addresses.",
     inputSchema: z.object({
       to: recipientsSchema,
       subject: z.string().min(1).max(998),
@@ -93,7 +93,7 @@ export function checkInboxTool({ apiKey }: { apiKey: string }) {
   const client = new AgentMailClient({ apiKey });
   return tool({
     description:
-      'List recent messages in kyto\'s own email inbox (via AgentMail). This gives you each message\'s sender, subject and a short preview — call readEmail with a message id to get the actual body. Set full:true to fetch the bodies of everything listed in one go, which is usually what someone means by "read my latest email".',
+      'List recent messages in forkie\'s own email inbox (via AgentMail). This gives you each message\'s sender, subject and a short preview — call readEmail with a message id to get the actual body. Set full:true to fetch the bodies of everything listed in one go, which is usually what someone means by "read my latest email".',
     inputSchema: z.object({
       limit: z.number().int().min(1).max(50).default(10),
       full: z
@@ -185,7 +185,7 @@ export function readEmailTool({ apiKey }: { apiKey: string }) {
   const client = new AgentMailClient({ apiKey });
   return tool({
     description:
-      "Read the full body of one message in kyto's inbox, by the message id from checkInbox. Use this whenever someone asks what an email actually says — the preview from checkInbox is only the first line or so.",
+      "Read the full body of one message in forkie's inbox, by the message id from checkInbox. Use this whenever someone asks what an email actually says — the preview from checkInbox is only the first line or so.",
     inputSchema: z.object({
       messageId: z.string().min(1).describe('Message id from checkInbox.'),
       inboxId: z
@@ -235,7 +235,7 @@ export function replyEmailTool({ apiKey }: { apiKey: string }) {
   const client = new AgentMailClient({ apiKey });
   return tool({
     description:
-      "Reply to a message in kyto's email inbox (via AgentMail). Use the message id from checkInbox.",
+      "Reply to a message in forkie's email inbox (via AgentMail). Use the message id from checkInbox.",
     inputSchema: z.object({
       messageId: z.string().min(1),
       text: z.string().min(1).describe('Plain-text reply body.'),

@@ -387,11 +387,11 @@ export async function buildTools({
     ...(agentMailKey
       ? {
           sendEmail: {
-            summary: 'send an email from kyto’s inbox',
+            summary: 'send an email from forkie’s inbox',
             tool: sendEmailTool({ apiKey: agentMailKey }),
           },
           checkInbox: {
-            summary: 'check kyto’s email inbox',
+            summary: 'check forkie’s email inbox',
             tool: checkInboxTool({ apiKey: agentMailKey }),
           },
           readEmail: {

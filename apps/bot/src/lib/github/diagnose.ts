@@ -26,7 +26,7 @@ const AUTH_FAILURE =
 const TOUCHES_GITHUB = /github\.com|gh:\s|\bgh\b/i;
 
 const HINT =
-  "GitHub rejected kyto's brokered credentials. That token is injected at the network layer, so nothing inside the sandbox can read, refresh, or replace it, and `gh auth` commands won't help — it needs the bot owner to rotate GH_TOKEN, and a thread only picks up a rotated token on its NEXT fresh sandbox. Note this does NOT mean the repo is private or missing: this failure looks identical for a public repo, because the rejected credential is attached before GitHub ever considers the request anonymous. To read a PUBLIC repo meanwhile, skip git auth entirely and download the tarball, e.g. `curl -sL https://codeload.github.com/OWNER/REPO/tar.gz/refs/heads/main | tar xz`. Tell whoever asked that the token needs rotating rather than retrying the same command.";
+  "GitHub rejected forkie's brokered credentials. That token is injected at the network layer, so nothing inside the sandbox can read, refresh, or replace it, and `gh auth` commands won't help — it needs the bot owner to rotate GH_TOKEN, and a thread only picks up a rotated token on its NEXT fresh sandbox. Note this does NOT mean the repo is private or missing: this failure looks identical for a public repo, because the rejected credential is attached before GitHub ever considers the request anonymous. To read a PUBLIC repo meanwhile, skip git auth entirely and download the tarball, e.g. `curl -sL https://codeload.github.com/OWNER/REPO/tar.gz/refs/heads/main | tar xz`. Tell whoever asked that the token needs rotating rather than retrying the same command.";
 
 /**
  * A hint to append to a failed command's result, or undefined when the failure

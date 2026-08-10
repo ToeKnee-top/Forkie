@@ -1,6 +1,6 @@
 {
   "display_information": {
-    "name": "kyto",
+    "name": "forkie",
     "description": "gork's more serious sibling",
     "background_color": "#000000"
   },
@@ -11,13 +11,13 @@
       "messages_tab_read_only_enabled": false
     },
     "bot_user": {
-      "display_name": "kyto",
+      "display_name": "forkie",
       "always_online": true
     },
     "slash_commands": [
       {
-        "command": "/kyto",
-        "description": "Interact with Kyto (try /kyto help)",
+        "command": "/forkie",
+        "description": "Interact with Forkie (try /forkie help)",
         "usage_hint": "help | topic-summaries",
         "should_escape": false
       }

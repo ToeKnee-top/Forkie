@@ -29,7 +29,7 @@ an optional block_id (≤255 chars).
   markdown: headers, tables, task lists, code with syntax highlighting.
   Images render as links. One block may be split into several on delivery.
   Good default for LLM-formatted prose; does NOT resolve <!channel> control
-  mentions (kyto's harness posts those as section+mrkdwn instead).
+  mentions (forkie's harness posts those as section+mrkdwn instead).
 - **header** — plain_text only, ≤150 chars.
 - **context** — up to 10 small text/image elements, muted styling.
 - **divider** — \`{"type":"divider"}\`.
@@ -39,16 +39,16 @@ an optional block_id (≤255 chars).
   markdown when composing by hand.
 - **video** — embeds a player; needs a public thumbnail + provider allowlist.
 
-## Interactivity warning (kyto-specific)
-A button/select posts an \`action_id\` to the app. kyto only handles its OWN
+## Interactivity warning (forkie-specific)
+A button/select posts an \`action_id\` to the app. forkie only handles its OWN
 action ids (confirm gate, polls, onboarding, App Home) — an arbitrary
 action_id you invent will do NOTHING when clicked. Use link buttons
 (\`"url": "https://…"\`) for anything that should just open; never promise a
-custom button "tells kyto" something.
+custom button "tells forkie" something.
 
 ## Notification fallback
 Always send \`text\` alongside \`blocks\` — it's what notifications and
-screen readers read (kyto's postMessage \`message\` param already is this).`;
+screen readers read (forkie's postMessage \`message\` param already is this).`;
 
 const SEARCH_DOC = `# Slack search modifiers (searchSlack)
 
@@ -75,9 +75,9 @@ the action token expires ~2 minutes in.
 - is:saved (your saved items)
 - filename:report, ext:pdf (file searches)
 
-kyto notes: results come back trimmed (2 context messages either side,
+forkie notes: results come back trimmed (2 context messages either side,
 limit 10) because context dominates token cost. Narrow with modifiers instead
-of raising limits. Searching \`in:@user\` is how kyto reads earlier DM
+of raising limits. Searching \`in:@user\` is how forkie reads earlier DM
 history on purpose — thread context alone has no memory of the rest of a DM.`;
 
 const CANVAS_DOC = `# Canvas markdown (canvasWrite / canvases.edit)
@@ -98,11 +98,11 @@ Kit is NOT supported in canvases.
 - Mentions: \`![](@U0123ABC)\` for a user, \`![](#C0123ABC)\` for a channel —
   NOT the message-style <@U…> form.
 
-## Editing (kyto's canvasWrite)
+## Editing (forkie's canvasWrite)
 - mode create-channel / create-standalone / edit; edit takes
   editOperation replace | insert_at_end (the API also has insert_at_start /
   insert_before / insert_after / delete with a section_id from
-  canvases.sections.lookup, but kyto's tool exposes the two above).
+  canvases.sections.lookup, but forkie's tool exposes the two above).
 - canvasId defaults to the last canvas created/edited this turn.
 - Share the returned \`link\` as [Title](link); never hand-compose a
   /canvas/<id> URL (it unfurls as a sign-in card).`;
