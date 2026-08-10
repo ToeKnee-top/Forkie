@@ -1,17 +1,17 @@
 <div align="center">
-  <img alt="Forkie banner" src="./.github/banner.png" />
   <h1>Forkie for Slack</h1>
 </div>
 
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Tech Stack](#tech-stack)
-4. [Getting Started](#getting-started)
-5. [Project Structure](#project-structure)
-6. [Development](#development)
-7. [License](#license)
+2. [Screenshots](#screenshots)
+3. [Features](#features)
+4. [Tech Stack](#tech-stack)
+5. [Getting Started](#getting-started)
+6. [Project Structure](#project-structure)
+7. [Development](#development)
+8. [License](#license)
 
 ## Introduction
 
@@ -27,6 +27,20 @@ Linux sandbox so Forkie can run commands, inspect files, generate artifacts,
 and upload results back to Slack. The sandbox runs over SSH on the owner's own
 home server ("Nest", `toeknee@hacklub.app`) — there is no third-party sandbox
 service.
+
+## Screenshots
+
+Forkie roasting gork2 in a Slack thread:
+
+![Forkie roasting gork2](.github/screenshots/forkie-roast.png)
+
+Forkie looking up #sprig and explaining how to participate:
+
+![Forkie explaining #sprig](.github/screenshots/forkie-sprig.png)
+
+Forkie helping enforce coding conventions in another bot's repo:
+
+![Forkie reviewing coding guidelines](.github/screenshots/forkie-guidelines.png)
 
 ## Features
 
