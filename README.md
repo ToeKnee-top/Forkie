@@ -74,7 +74,7 @@ cp apps/bot/.env.example apps/bot/.env
 bun run db:push
 
 # Start the Slack bot
-bun run dev:bot
+bun run start:bot
 ```
 
 Local development uses Slack Socket Mode, so the bot does not need a public HTTP
