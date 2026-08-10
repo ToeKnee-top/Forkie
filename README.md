@@ -1,6 +1,6 @@
 <div align="center">
-  <img alt="Kyto banner" src="./.github/banner.png" />
-  <h1>Kyto for Slack</h1>
+  <img alt="Forkie banner" src="./.github/banner.png" />
+  <h1>Forkie for Slack</h1>
 </div>
 
 ## Table of Contents
@@ -15,22 +15,24 @@
 
 ## Introduction
 
-Kyto is an AI assistant for Slack. It responds in mentions, DMs, Assistant
-threads, and subscribed Slack threads with answers backed by tools, sandboxed
-code execution, web search, Slack context, file uploads, image generation, and
-reminders.
+Forkie is an AI assistant for Slack, forked from [Kyto][kyto]. It responds in
+mentions, DMs, Assistant threads, and subscribed Slack threads with answers
+backed by tools, sandboxed code execution, web search, Slack context, file
+uploads, image generation, and reminders.
 
-The bot runs as a long-lived Bun process. Slack events are handled through
-[Vercel Chat SDK][chat-sdk] and the Slack adapter in Socket Mode, while coding
-agent work runs through [Vercel AI SDK][ai-sdk] Harness/Pi. Each active Slack
-conversation gets an [E2B][e2b] sandbox so Kyto can run commands, inspect
-files, generate artifacts, and upload results back to Slack.
+The bot runs as a long-lived Bun process. Slack events are handled through the
+Slack adapter in Socket Mode, while the coding-agent loop is driven by the
+[Vercel AI SDK][ai-sdk]. Each active Slack conversation gets an isolated remote
+Linux sandbox so Forkie can run commands, inspect files, generate artifacts,
+and upload results back to Slack. The sandbox runs over SSH on the owner's own
+home server ("Nest", `toeknee@hacklub.app`) — there is no third-party sandbox
+service.
 
 ## Features
 
 - Slack-native replies for mentions, DMs, Assistant threads, and thread follow-ups.
-- Per-thread sandbox sessions backed by E2B.
-- Coding-agent workflows through AI SDK Harness/Pi.
+- Per-thread remote sandbox sessions over SSH.
+- A coding-agent loop backed by the Vercel AI SDK.
 - Slack-aware tools for reading public channel/thread history, posting messages,
   looking up users/channels, and reacting to messages.
 - Web search through Exa.
@@ -43,9 +45,8 @@ files, generate artifacts, and upload results back to Slack.
 ## Tech Stack
 
 - [Bun][bun] and TypeScript
-- [Vercel Chat SDK][chat-sdk] with `@chat-adapter/slack`
-- [Vercel AI SDK][ai-sdk] `HarnessAgent` with `@ai-sdk/harness-pi`
-- [E2B][e2b] sandbox sessions
+- [Vercel AI SDK][ai-sdk]
+- A self-hosted Linux sandbox over SSH (no external sandbox service)
 - [PostgreSQL][postgres] + [Drizzle ORM][drizzle]
 - [Exa][exa]
 - [Langfuse][langfuse] + [OpenTelemetry][otel]
@@ -56,12 +57,12 @@ files, generate artifacts, and upload results back to Slack.
 
 Create a new [Slack app](https://api.slack.com/apps) using the
 [provided manifest](slack-manifest.json). You will also need [Git][git],
-[Bun][bun], a [PostgreSQL][postgres] database, an [E2B][e2b] API key, and model
-provider keys for the configured Harness/Pi attempts.
+[Bun][bun], a [PostgreSQL][postgres] database, model provider keys, and SSH
+access to a Linux host to run the sandboxes on.
 
 ```bash
 # Clone this repository
-git clone https://github.com/imdevarsh/kyto-slack.git
+git clone https://github.com/toeknee-top/Forkie.git
 
 # Install dependencies
 bun install
@@ -86,13 +87,13 @@ notes, and deployment guidance.
 
 ```text
 apps/
-  bot/        Slack runtime, Chat SDK wiring, Slack features, bot-owned tools
+  bot/        Slack runtime, socket wiring, Slack features, bot-owned tools
 docs/         Human/agent-readable architecture notes
 packages/
-  ai/         Harness/Pi agent setup, prompts, provider attempts, session files
+  ai/         Coding-agent setup, prompts, provider attempts, session files
   db/         Drizzle schema, PostgreSQL client, queries
   logging/    Pino logger factory
-  sandbox/    E2B sandbox provider, template builder, sandbox skills
+  sandbox/    Sandbox provider (SSH to the Nest host), template builder, sandbox skills
   utils/      Shared framework-agnostic helpers
 tooling/
   cspell/     Shared cspell configuration
@@ -101,7 +102,7 @@ tooling/
 ```
 
 `apps/bot` is the production runtime. It runs TypeScript directly with Bun and
-keeps Slack Socket Mode, Chat SDK state, Harness/Pi sessions, and E2B sandbox
+keeps Slack Socket Mode, Chat SDK state, coding-agent sessions, and sandbox
 coordination in one process.
 
 ## Development
@@ -129,7 +130,8 @@ bun run build:template
 
 Manual Slack smoke testing is documented in [TESTING.md](TESTING.md).
 
-Architecture notes live in [docs/](docs/). They are Markdown files with Fumadocs-compatible frontmatter/components and can be previewed with:
+Architecture notes live in [docs/](docs/). They are Markdown files with
+Fumadocs-compatible frontmatter/components and can be previewed with:
 
 ```bash
 bun run docs:preview
@@ -139,15 +141,14 @@ bun run docs:preview
 
 This project is under the MIT license. See [LICENSE](LICENSE) for details.
 
-[git]: https://git-scm.com/
+[kyto]: https://github.com/Devansh-awat/kyto
 [bun]: https://bun.sh/
-[chat-sdk]: https://chat-sdk.dev/
 [ai-sdk]: https://ai-sdk.dev/
-[e2b]: https://e2b.dev/
 [postgres]: https://www.postgresql.org/
 [drizzle]: https://orm.drizzle.team/
 [exa]: https://exa.ai/
 [langfuse]: https://langfuse.com/
 [otel]: https://opentelemetry.io/
-[turbo]: https://turbo.build/
-[ultracite]: https://www.ultracite.ai/
+[turbo]: https://turborepo.com/
+[ultracite]: https://github.com/Biomejs/biome
+[git]: https://git-scm.com/
