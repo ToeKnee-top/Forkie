@@ -1,7 +1,8 @@
 # Kyto
 
-Kyto is an AI assistant for Slack. The codebase is a Bun/TypeScript monorepo on
-Bun + TypeScript, the `ai` SDK, E2B, Drizzle/Postgres, Turborepo, and Ultracite.
+Forkie is an AI assistant for Slack, forked from Kyto. The codebase is a
+Bun/TypeScript monorepo on Bun + TypeScript, the `ai` SDK, Drizzle/Postgres,
+Turborepo, and Ultracite.
 
 **The Vercel Chat SDK, the Pi framework, and `@ai-sdk/harness*` were removed in
 a ground-up rewrite. Nothing in this repo runs on them.** If a doc, comment, or
@@ -20,8 +21,9 @@ Slack is reached through kyto's own harness (`apps/bot/src/harness/`) —
 
 The loop runs on the bot host, never in the sandbox. Model keys, BYOK secrets,
 MCP credentials, prompt assembly, Slack tools, and the agent loop all live on the
-host. Each Slack THREAD gets its own persistent E2B sandbox — remote Linux for
-the `bash`/file tools — created lazily on the first tool call that needs it.
+host. Each Slack THREAD gets its own persistent remote Linux sandbox over SSH —
+the owner's Nest box at `toeknee@hacklub.app` — for the `bash`/file tools,
+created lazily on the first tool call that needs it.
 
 Memory is the Slack thread itself: `buildPrompt` replays it. No transcript is
 persisted. Three kinds of DERIVED text are (`thread_thinking`,
@@ -45,7 +47,7 @@ persisted. Three kinds of DERIVED text are (`thread_thinking`,
   tools, and the owner dashboard.
 - `packages/ai`: platform-neutral attempt construction, the `streamText` call
   and its per-provider fetch tuning, prompts, and provider rosters.
-- `packages/sandbox`: E2B sandbox provider, lazy/persistent session, template.
+- `packages/sandbox`: SSH sandbox provider (Nest host), lazy/persistent session, template.
 - `packages/db`: Drizzle schema, Postgres client, and app-owned queries.
 - `docs`: Markdown architecture docs for humans and agents.
 
