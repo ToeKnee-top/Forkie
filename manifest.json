@@ -1,18 +1,21 @@
 {
-  "name": "forkie — your agent, everywhere",
-  "short_name": "forkie",
-  "description": "AI assistant for Slack, forked from kyto. Chat, code, search, images, reminders, deploys.",
+  "name": "Forkie",
+  "short_name": "Forkie",
+  "description": "Forkie - your agent, everywhere",
   "start_url": "./",
-  "scope": "./",
   "display": "standalone",
-  "background_color": "#07090b",
-  "theme_color": "#07090b",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
   "icons": [
     {
-      "src": "./icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
+      "src": "./avatar.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "./avatar.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
     }
   ]
 }

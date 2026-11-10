@@ -2,182 +2,65 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>forkie — your agent, everywhere</title>
-<meta name="description" content="Forkie is an AI assistant for Slack, forked from Kyto. Chat, code, search the web, generate images, set reminders, deploy websites — all from Slack, now with a home on the web.">
-<meta name="theme-color" content="#07090b">
-<meta property="og:title" content="forkie — your agent, everywhere">
-<meta property="og:description" content="An AI assistant for Slack, forked from Kyto. Code, web, images, reminders, deploys — the whole toolkit.">
-<meta property="og:type" content="website">
-<link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="./icon.svg">
-<link rel="manifest" href="./manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>forkie</title>
+<link rel="icon" href="./avatar.jpg" type="image/jpeg">
 <link rel="stylesheet" href="./styles.css">
+<meta name="theme-color" content="#1a1a2e">
 </head>
 <body>
-
-<header class="nav">
-  <a class="brand" href="./">
-    <img src="./icon.svg" alt="" width="30" height="30">
-    <span>forkie</span>
-  </a>
-  <nav class="nav-links">
-    <a href="#capabilities">capabilities</a>
-    <a href="#live">live</a>
-    <a href="#repo">source</a>
-  </nav>
-  <a class="btn btn-ghost" href="https://hackclub.slack.com/app_redirect?app=U0BMY5HL3DG" target="_blank" rel="noopener">talk to me →</a>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="hero-badge">
-      <span class="dot"></span> online in slack
+<div id="app">
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <img src="./avatar.jpg" alt="forkie" class="sidebar-logo">
+      <span class="sidebar-title">forkie</span>
     </div>
-    <h1 class="hero-title">your agent,<br><span class="accent">everywhere.</span></h1>
-    <p class="hero-sub">
-      forkie is an AI assistant for Slack, forked from
-      <a href="https://github.com/Devansh-awat/kyto" target="_blank" rel="noopener">kyto</a>.
-      Mention it, DM it, and it answers with real tools: sandboxed code, web
-      search, GitHub, images, reminders, deployed sites. This site is its home
-      on the web.
-    </p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="https://hackclub.slack.com/app_redirect?app=U0BMY5HL3DG" target="_blank" rel="noopener">open in slack</a>
-      <a class="btn btn-ghost" href="#capabilities">see what it can do</a>
+    <button id="new-chat-btn" class="new-chat-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      new chat
+    </button>
+    <div id="chat-history" class="chat-history"></div>
+    <div class="sidebar-footer">
+      <div class="user-badge">
+        <img src="./avatar.jpg" alt="forkie" class="user-avatar">
+        <span>forkie agent</span>
+      </div>
     </div>
-    <p class="hero-note">the brain lives in slack today — this page is the front door, and it's built to be the web app's shell.</p>
-  </section>
+  </aside>
 
-  <section class="live" id="live">
-    <div class="card repo-card">
-      <div class="repo-head">
-        <div class="repo-icon">⑂</div>
-        <div>
-          <div class="repo-name"><a href="https://github.com/ToeKnee-top/Forkie" target="_blank" rel="noopener">ToeKnee-top/Forkie</a></div>
-          <div class="repo-desc">AI assistant for Slack · fork of kyto · open source</div>
+  <main id="main">
+    <header id="top-bar">
+      <button id="sidebar-toggle" class="icon-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <span id="model-name">forkie</span>
+    </header>
+
+    <div id="chat-container">
+      <div id="welcome" class="welcome">
+        <img src="./avatar.jpg" alt="forkie" class="welcome-logo">
+        <h1>how can i help you today?</h1>
+        <div class="suggestions">
+          <button class="suggestion" data-prompt="explain quantum computing like i'm five">explain quantum computing like i'm five</button>
+          <button class="suggestion" data-prompt="write a poem about the ocean">write a poem about the ocean</button>
+          <button class="suggestion" data-prompt="help me debug a javascript error">help me debug a javascript error</button>
+          <button class="suggestion" data-prompt="what can you do?">what can you do?</button>
         </div>
-        <span class="license">AGPL-3.0</span>
       </div>
-      <div class="repo-stats" id="repo-stats">
-        <span class="stat"><b id="st-stars">–</b> stars</span>
-        <span class="stat"><b id="st-forks">–</b> forks</span>
-        <span class="stat"><b id="st-issues">–</b> open issues</span>
-        <span class="stat">pushed <b id="st-pushed">–</b></span>
-      </div>
-      <div class="repo-foot">
-        <span id="st-lang">–</span>
-        <a href="https://github.com/ToeKnee-top/Forkie/fork" target="_blank" rel="noopener">fork it ↗</a>
-        <a href="https://github.com/ToeKnee-top/Forkie/issues" target="_blank" rel="noopener">file an issue ↗</a>
-      </div>
+      <div id="messages"></div>
     </div>
-  </section>
 
-  <section class="capabilities" id="capabilities">
-    <h2 class="section-title">the toolkit</h2>
-    <p class="section-sub">the same capabilities forkie has in slack.</p>
-    <div class="grid">
-      <div class="card cap">
-        <div class="cap-emoji">💬</div>
-        <h3>chat, in slack</h3>
-        <p>mention it or DM it, in channels, threads, or assistant threads. it follows the conversation.</p>
+    <footer id="input-area">
+      <div class="input-wrapper">
+        <textarea id="chat-input" placeholder="message forkie..." rows="1"></textarea>
+        <button id="send-btn" class="send-btn" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
       </div>
-      <div class="card cap">
-        <div class="cap-emoji">🖥️</div>
-        <h3>sandboxed code</h3>
-        <p>every conversation gets an isolated linux sandbox — run code, process files, build things.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">🌐</div>
-        <h3>web search</h3>
-        <p>current info, docs, and facts — no guessing at recent events.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">🐙</div>
-        <h3>github</h3>
-        <p>forks repos, makes edits, opens pull requests. real work in public repos.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">🎨</div>
-        <h3>image generation</h3>
-        <p>generate images from a prompt, right in the thread.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">📁</div>
-        <h3>files & media</h3>
-        <p>upload anything — audio, video, images, docs — and it'll process and return results.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">⏰</div>
-        <h3>reminders</h3>
-        <p>one-time and recurring reminders, or scheduled scripts that run in its sandbox.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">🚀</div>
-        <h3>deploys sites</h3>
-        <p>builds static sites and publishes them to a live URL. yes, like this one.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">📝</div>
-        <h3>docs & canvases</h3>
-        <p>creates canvases, summaries, runbooks, and structured notes you can keep.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">🧭</div>
-        <h3>browser automation</h3>
-        <p>drives a real browser — fills forms, clicks, screenshots, tests web apps.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">📧</div>
-        <h3>email</h3>
-        <p>has its own inbox — reads, replies, and sends mail.</p>
-      </div>
-      <div class="card cap">
-        <div class="cap-emoji">♻️</div>
-        <h3>open source</h3>
-        <p>AGPL-3.0, a fork of kyto. run your own, or fork it again.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="how">
-    <h2 class="section-title">how to use it</h2>
-    <div class="steps">
-      <div class="step"><span class="step-num">1</span><p>DM <b>@forkie</b> in slack, or mention it in any channel.</p></div>
-      <div class="step"><span class="step-num">2</span><p>Ask for anything — code, research, images, a deployed site.</p></div>
-      <div class="step"><span class="step-num">3</span><p>Watch it think out loud, run tools, and deliver results.</p></div>
-    </div>
-    <div class="how-cta">
-      <a class="btn btn-primary" href="https://hackclub.slack.com/app_redirect?app=U0BMY5HL3DG" target="_blank" rel="noopener">start a conversation</a>
-    </div>
-  </section>
-
-  <section class="repo" id="repo">
-    <div class="card repo-card">
-      <h2 class="section-title">built on kyto</h2>
-      <p class="section-sub">
-        forkie is a fork of <a href="https://github.com/Devansh-awat/kyto" target="_blank" rel="noopener">kyto</a>,
-        built and run by <a href="https://github.com/ToeKnee-top" target="_blank" rel="noopener">Devansh Awatramani</a>.
-        Both are open source under AGPL-3.0 — anyone running a modified kyto
-        as a service must offer their users the modified source.
-      </p>
-      <div class="repo-links">
-        <a class="btn btn-ghost" href="https://github.com/ToeKnee-top/Forkie" target="_blank" rel="noopener">forkie source ↗</a>
-        <a class="btn btn-ghost" href="https://github.com/Devansh-awat/kyto" target="_blank" rel="noopener">kyto source ↗</a>
-        <a class="btn btn-ghost" href="https://github.com/kyto-agent" target="_blank" rel="noopener">forkie's github ↗</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <span>© 2026 Devansh Awatramani · forkie is AGPL-3.0 open source</span>
-  <span class="footer-links">
-    <a href="https://github.com/ToeKnee-top/Forkie" target="_blank" rel="noopener">source</a>
-    <a href="https://github.com/Devansh-awat/kyto" target="_blank" rel="noopener">kyto</a>
-  </span>
-</footer>
-
+      <div class="input-footer">forkie can make mistakes. check important info.</div>
+    </footer>
+  </main>
+</div>
 <script src="./app.js"></script>
 </body>
 </html>
