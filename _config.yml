@@ -1,0 +1,45 @@
+# Forkie website: GitHub Pages build config.
+# The repo root also contains the whole bot monorepo and dotfile symlinks
+# (.claude/skills -> .agents/skills, some broken). Letting the Pages
+# uploader pack those breaks the build, so Jekyll builds only the website
+# files and everything else is excluded.
+exclude:
+  - .agents
+  - .claude
+  - .coderabbit.yaml
+  - .codex
+  - .cspell.jsonc
+  - .devcontainer
+  - .github
+  - .gitignore
+  - .mcp.json
+  - .vscode
+  - .zed
+  - AGENTS.md
+  - CONTEXT.md
+  - DEVELOPMENT.md
+  - LICENSE
+  - LICENSE-gorkie-MIT
+  - NOTICE
+  - README.md
+  - TESTING.md
+  - TODO.md
+  - apps
+  - biome.jsonc
+  - bts.jsonc
+  - bun.lock
+  - bunfig.toml
+  - commitlint.config.ts
+  - deploy
+  - docs
+  - fumadocs.config.ts
+  - knip.json
+  - lefthook.yml
+  - package.json
+  - packages
+  - plans
+  - skills-lock.json
+  - slack-manifest.json
+  - taze.config.ts
+  - turbo
+  - turbo.json
