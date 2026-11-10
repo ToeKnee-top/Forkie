@@ -51,6 +51,20 @@ export const env = createEnv({
     // unless it is set, and short passwords are rejected outright.
     DASHBOARD_PASSWORD: z.string().min(12).optional(),
 
+    // Web chat backend (see lib/webchat) — lets the Forkie WEBSITE talk to the
+    // same agent brain that runs this bot: same model attempts, same system
+    // prompt. The static site POSTs to {WEB_CHAT_URL}/api/chat.
+    WEB_CHAT_ENABLED: z
+      .enum(['true', 'false'])
+      .default('false')
+      .transform((value) => value === 'true'),
+    WEB_CHAT_PORT: z.coerce.number().default(8787),
+    // Optional shared secret. When set, /api/chat requires an
+    // `x-web-chat-secret` header matching this value. The static site keeps it
+    // in localStorage (the owner enters it once) — it stops random bots burning
+    // your model quota; it is NOT real auth against a determined client.
+    WEB_CHAT_SECRET: z.string().min(8).optional(),
+
     E2B_API_KEY: z.string().min(1).optional(),
     // Sandbox provider selection: SSH_SANDBOX_HOST => code runs over SSH on a
     // box you own; else E2B_API_KEY => the E2B-backed per-thread sandbox; else

@@ -25,6 +25,9 @@
         <img src="./avatar.jpg" alt="forkie" class="user-avatar">
         <span>forkie agent</span>
       </div>
+      <button id="settings-btn" class="icon-btn" title="connect to your forkie backend">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
     </div>
   </aside>
 
@@ -34,6 +37,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <span id="model-name">forkie</span>
+      <span id="conn-dot" class="conn-dot" title="public mode"></span>
     </header>
 
     <div id="chat-container">
@@ -61,6 +65,24 @@
     </footer>
   </main>
 </div>
+
+<div id="settings-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <h2>connect to your forkie backend</h2>
+    <p class="modal-hint">point this site at the server running your forkie agent — same model, same keys, same brain as the slack bot.</p>
+    <label for="backend-url">backend url</label>
+    <input id="backend-url" type="text" placeholder="https://your-server:8787" autocomplete="off">
+    <label for="backend-secret">secret <span class="optional">(optional)</span></label>
+    <input id="backend-secret" type="password" placeholder="the WEB_CHAT_SECRET you set on the server" autocomplete="off">
+    <div class="modal-actions">
+      <button id="backend-save" class="modal-btn primary">save</button>
+      <button id="backend-clear" class="modal-btn">disconnect</button>
+      <button id="backend-cancel" class="modal-btn">cancel</button>
+    </div>
+    <p id="backend-status" class="backend-status"></p>
+  </div>
+</div>
+
 <script src="./app.js"></script>
 </body>
 </html>

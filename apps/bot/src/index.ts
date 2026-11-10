@@ -8,6 +8,7 @@ import logger from '@/lib/logger';
 import { startReminderScheduler } from '@/lib/reminders/scheduler';
 import { startSandboxReaper } from '@/lib/sandbox/store';
 import { startSitesServer } from '@/lib/sites/server';
+import { startWebChatServer } from '@/lib/webchat/server';
 
 let shuttingDown = false;
 
@@ -28,6 +29,7 @@ try {
   await bot.initialize();
   await buildAllowlist();
   await startSitesServer();
+  await startWebChatServer();
   startReminderScheduler(bot);
   // Paused thread sandboxes keep costing storage; collect the idle ones.
   startSandboxReaper();
